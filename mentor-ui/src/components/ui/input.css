@@ -1,0 +1,56 @@
+.gradient-input__control .ant-input {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit;
+  padding: 0 !important;
+}
+
+.gradient-input__control .ant-input-affix-wrapper {
+  align-items: center;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+.gradient-input__control .ant-input::placeholder {
+  color: #636363;
+}
+
+.gradient-input__control .ant-input-disabled::placeholder {
+  color: #313131;
+}
+
+.gradient-input__control .ant-input-prefix,
+.gradient-input__control .ant-input-suffix {
+  align-items: center;
+  display: inline-flex;
+  margin-inline: 0;
+}
+
+.gradient-input__control .ant-input-prefix {
+  margin-inline-end: 8px;
+}
+
+.gradient-input__control .ant-input-suffix {
+  margin-inline-start: 8px;
+}
+
+.gradient-input__icon {
+  align-items: center;
+  display: inline-flex;
+  height: 20px;
+  justify-content: center;
+  width: 20px;
+}
+
+.gradient-input__icon > .anticon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.gradient-input__icon > svg {
+  height: 20px;
+  width: 20px;
+}
