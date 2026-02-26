@@ -7,7 +7,7 @@ import { cx } from '../internal/cx'
 import './select-menu.css'
 
 export interface SelectMenuItem {
-  key: string
+  value: string
   label: React.ReactNode
   /**
    * Plain-text string used for search/filtering.
@@ -28,9 +28,9 @@ export interface SelectMenuSection {
 export interface SelectMenuProps {
   items?: SelectMenuItem[]
   sections?: SelectMenuSection[]
-  selectedKey?: string | null
-  onSelect?: (key: string) => void
-  onCascadeOpen?: (key: string) => void
+  selectedValue?: string | null
+  onSelect?: (value: string) => void
+  onCascadeOpen?: (value: string) => void
   showIcons?: boolean
   showDividers?: boolean
   showCascading?: boolean
@@ -51,7 +51,7 @@ export interface SelectMenuProps {
    * an antd Dropdown portal — the correct rendering context for antd Menu.
    *
    * When omitted, only the panel div is rendered (for embedding inside
-   * another Dropdown's `dropdownRender`, e.g. inside `<Select>`).
+   * another Dropdown's `dropdownRender`, e.g. inside `<SingleSelect>`).
    */
   trigger?: React.ReactNode
   /** Controlled open state — only meaningful when `trigger` is provided. */
@@ -96,16 +96,16 @@ function filterItems(items: SelectMenuItem[], query: string): SelectMenuItem[] {
 
 function toMenuItem(
   item: SelectMenuItem,
-  options: { showIcons: boolean; showCascading: boolean; disabled: boolean; selectedKey: string | null },
+  options: { showIcons: boolean; showCascading: boolean; disabled: boolean; selectedValue: string | null },
 ): NonNullable<MenuProps['items']>[number] {
-  const { showIcons, showCascading, disabled, selectedKey } = options
+  const { showIcons, showCascading, disabled, selectedValue } = options
   const hasChildren = showCascading && (item.children?.length ?? 0) > 0
   const iconColor = item.disabled || disabled ? 'var(--color-neutral-600)' : '#ffffff'
   const textColor = item.disabled || disabled ? 'var(--color-neutral-600)' : '#ffffff'
-  const isSelectedLeaf = !hasChildren && selectedKey === item.key
+  const isSelectedLeaf = !hasChildren && selectedValue === item.value
 
   return {
-    key: item.key,
+    key: item.value,
     className: isSelectedLeaf ? 'gradient-select-menu-item--selected' : undefined,
     disabled: disabled || item.disabled,
     icon: showIcons
@@ -125,7 +125,7 @@ function toMenuItem(
 export function SelectMenu({
   items,
   sections,
-  selectedKey = null,
+  selectedValue = null,
   onSelect,
   onCascadeOpen,
   showIcons = false,
@@ -173,10 +173,10 @@ export function SelectMenu({
       .filter((section) => section.items.length > 0)
   }, [sourceSections, resolvedSearch])
 
-  const itemByKey = useMemo(() => {
+  const itemByValue = useMemo(() => {
     const map = new Map<string, SelectMenuItem>()
     flattenItems(filteredSections.flatMap((s) => s.items)).forEach((item) => {
-      map.set(item.key, item)
+      map.set(item.value, item)
     })
     return map
   }, [filteredSections])
@@ -185,18 +185,18 @@ export function SelectMenu({
     const entries: NonNullable<MenuProps['items']> = []
     filteredSections.forEach((section, sectionIndex) => {
       section.items.forEach((item) => {
-        entries.push(toMenuItem(item, { showIcons, showCascading, disabled, selectedKey }))
+        entries.push(toMenuItem(item, { showIcons, showCascading, disabled, selectedValue }))
       })
       if (showDividers && sectionIndex < filteredSections.length - 1) {
         entries.push({ type: 'divider' })
       }
     })
     return entries
-  }, [filteredSections, showIcons, showCascading, disabled, showDividers, selectedKey])
+  }, [filteredSections, showIcons, showCascading, disabled, showDividers, selectedValue])
 
-  const hasSelection = Boolean(selectedKey)
+  const hasSelection = Boolean(selectedValue)
 
-  // ── Panel (shared between both modes) ─────────────────────────────────────
+  // ── Panel ──────────────────────────────────────────────────────────────────
 
   const panel = (
     <div
@@ -264,10 +264,10 @@ export function SelectMenu({
           }}
           items={menuItems}
           onClick={({ key }) => {
-            const resolvedKey = String(key)
-            const item = itemByKey.get(resolvedKey)
+            const val = String(key)
+            const item = itemByValue.get(val)
             if (!item || item.children?.length) return
-            onSelect?.(resolvedKey)
+            onSelect?.(val)
           }}
           className="gradient-select-menu"
         />
@@ -324,16 +324,12 @@ export function SelectMenu({
         placement={placement}
         dropdownRender={() => <div style={{ paddingTop: 4 }}>{panel}</div>}
       >
-        {/*
-         * Wrap in a span so antd Dropdown always has a single DOM node
-         * to attach its event listeners to, regardless of what `trigger` is.
-         */}
         <span style={{ display: 'inline-flex' }}>{trigger}</span>
       </Dropdown>
     )
   }
 
-  // ── Panel-only mode — embedded by Select / MultiSelect / etc. ─────────────
+  // ── Panel-only mode — embedded by SingleSelect / MultiSelect / etc. ────────
 
   return panel
 }

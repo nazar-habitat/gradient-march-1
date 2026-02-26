@@ -20,7 +20,10 @@ export { Input } from './Input'
 export type { InputProps, InputSize } from './Input'
 
 export { Select } from './Select'
-export type { SelectProps, SelectItem, SelectSize } from './Select'
+export type { SelectProps } from './Select'
+
+export { SingleSelect } from './SingleSelect'
+export type { SingleSelectProps, SelectOption, SelectSize } from './SingleSelect'
 
 export { MultiSelect } from './MultiSelect'
-export type { MultiSelectProps, MultiSelectItem, MultiSelectSize } from './MultiSelect'
+export type { MultiSelectProps, MultiSelectSize } from './MultiSelect'

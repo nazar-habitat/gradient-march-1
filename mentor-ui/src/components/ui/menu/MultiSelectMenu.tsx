@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react'
-import { Checkbox as AntCheckbox } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
+import { Checkbox } from '../Checkbox'
 import { Input } from '../Input'
 import { cx } from '../internal/cx'
 import './multi-select-menu.css'
 
 export interface MultiSelectMenuItem {
-  key: string
+  value: string
   label: React.ReactNode
   /**
    * Plain-text string used for search/filtering.
@@ -26,9 +26,9 @@ export interface MultiSelectMenuSection {
 export interface MultiSelectMenuProps {
   items?: MultiSelectMenuItem[]
   sections?: MultiSelectMenuSection[]
-  selectedKeys?: string[]
-  onSelectionChange?: (keys: string[]) => void
-  onApply?: (keys: string[]) => void
+  selectedValues?: string[]
+  onSelectionChange?: (values: string[]) => void
+  onApply?: (values: string[]) => void
   showIcons?: boolean
   showDividers?: boolean
   showHeader?: boolean
@@ -62,12 +62,12 @@ function filterItems(items: MultiSelectMenuItem[], query: string): MultiSelectMe
   })
 }
 
-// ── Row ──────────────────────────────────────────────────────────────────────
+// ── Row ───────────────────────────────────────────────────────────────────────
 
 interface RowProps {
   item: MultiSelectMenuItem
   checked: boolean
-  onToggle: (key: string) => void
+  onToggle: (value: string) => void
   showIcons: boolean
   disabled: boolean
 }
@@ -81,9 +81,7 @@ function Row({ item, checked, onToggle, showIcons, disabled }: RowProps) {
       role="option"
       aria-selected={checked}
       aria-disabled={isDisabled}
-      onClick={() => {
-        if (!isDisabled) onToggle(item.key)
-      }}
+      onClick={() => { if (!isDisabled) onToggle(item.value) }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -92,22 +90,19 @@ function Row({ item, checked, onToggle, showIcons, disabled }: RowProps) {
         borderRadius: '8px',
         cursor: isDisabled ? 'not-allowed' : 'pointer',
         display: 'flex',
-        gap: 8,
+        gap: 6,
         height: 32,
         marginBlock: 2,
-        paddingInline: 8,
+        paddingInlineStart: 6,
+        paddingInlineEnd: 8,
         transition: 'background-color 80ms ease',
       }}
     >
-      <AntCheckbox
+      <Checkbox
         checked={checked}
         disabled={isDisabled}
-        // Prevent double-toggle: AntCheckbox fires onChange, outer div fires onClick.
-        // Stop the checkbox's own click event from bubbling to the div.
         onClick={(e) => e.stopPropagation()}
-        onChange={() => {
-          if (!isDisabled) onToggle(item.key)
-        }}
+        onChange={() => { if (!isDisabled) onToggle(item.value) }}
         style={{ flexShrink: 0 }}
       />
       {showIcons && item.icon && (
@@ -126,6 +121,8 @@ function Row({ item, checked, onToggle, showIcons, disabled }: RowProps) {
         style={{
           color: isDisabled ? 'var(--color-neutral-600)' : '#ffffff',
           flex: 1,
+          fontSize: 13,
+          fontWeight: 500,
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           userSelect: 'none',
@@ -143,7 +140,7 @@ function Row({ item, checked, onToggle, showIcons, disabled }: RowProps) {
 export function MultiSelectMenu({
   items,
   sections,
-  selectedKeys = [],
+  selectedValues = [],
   onSelectionChange,
   onApply,
   showIcons = false,
@@ -179,14 +176,14 @@ export function MultiSelectMenu({
       .filter((section) => section.items.length > 0)
   }, [sourceSections, resolvedSearch])
 
-  const toggle = (key: string) => {
-    const next = selectedKeys.includes(key)
-      ? selectedKeys.filter((k) => k !== key)
-      : [...selectedKeys, key]
+  const toggle = (val: string) => {
+    const next = selectedValues.includes(val)
+      ? selectedValues.filter((v) => v !== val)
+      : [...selectedValues, val]
     onSelectionChange?.(next)
   }
 
-  const hasSelection = selectedKeys.length > 0
+  const hasSelection = selectedValues.length > 0
   const showBottomBar = hasSelection || Boolean(onApply)
 
   return (
@@ -244,7 +241,6 @@ export function MultiSelectMenu({
         </div>
       )}
 
-      {/* role="listbox" + aria-multiselectable live on the scroll container */}
       <div
         role="listbox"
         aria-multiselectable="true"
@@ -255,9 +251,9 @@ export function MultiSelectMenu({
           <React.Fragment key={section.key ?? sectionIndex}>
             {section.items.map((item) => (
               <Row
-                key={item.key}
+                key={item.value}
                 item={item}
-                checked={selectedKeys.includes(item.key)}
+                checked={selectedValues.includes(item.value)}
                 onToggle={toggle}
                 showIcons={showIcons}
                 disabled={disabled}
@@ -312,10 +308,7 @@ export function MultiSelectMenu({
             <button
               type="button"
               disabled={disabled}
-              onClick={() => {
-                if (disabled) return
-                onApply(selectedKeys)
-              }}
+              onClick={() => { if (!disabled) onApply(selectedValues) }}
               style={{
                 background: disabled ? 'transparent' : 'var(--color-purple-500)',
                 border: disabled ? '1px solid var(--color-neutral-800)' : '0',

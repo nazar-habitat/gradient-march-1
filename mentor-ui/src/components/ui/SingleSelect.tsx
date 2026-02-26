@@ -1,24 +1,32 @@
 import React, { useMemo, useRef, useState } from 'react'
 import { Dropdown } from 'antd'
-import { CloseOutlined } from '@ant-design/icons'
-import { Tag } from './Tag'
-import { MultiSelectMenu, type MultiSelectMenuItem } from './menu/MultiSelectMenu'
+import { SelectMenu, type SelectMenuItem } from './menu/SelectMenu'
 import { Chevron } from './internal/Chevron'
 import { cx } from './internal/cx'
-import type { SelectOption, SelectSize } from './SingleSelect'
 import './select.css'
 
-export type MultiSelectSize = SelectSize
+export type SelectSize = 'md' | 'sm'
 
-export interface MultiSelectProps {
+export interface SelectOption {
+  value: string
+  label: React.ReactNode
+  /**
+   * Plain-text string used for search/filtering.
+   * Provide this when `label` is a ReactNode rather than a plain string.
+   */
+  searchLabel?: string
+  icon?: React.ReactNode
+  disabled?: boolean
+}
+
+export interface SingleSelectProps {
   options: SelectOption[]
-  value?: string[]
-  onChange?: (values: string[]) => void
-  onApply?: (values: string[]) => void
+  value?: string
+  onChange?: (value: string) => void
   placeholder?: string
   prefix?: string
   leadingIcon?: React.ReactNode
-  size?: MultiSelectSize
+  size?: SelectSize
   disabled?: boolean
   open?: boolean
   defaultOpen?: boolean
@@ -27,11 +35,10 @@ export interface MultiSelectProps {
   style?: React.CSSProperties
 }
 
-export function MultiSelect({
+export function SingleSelect({
   options,
-  value = [],
+  value,
   onChange,
-  onApply,
   placeholder = 'Select',
   prefix,
   leadingIcon,
@@ -42,20 +49,19 @@ export function MultiSelect({
   onOpenChange,
   className,
   style,
-}: MultiSelectProps) {
+}: SingleSelectProps) {
   const triggerRef = useRef<HTMLButtonElement>(null)
-  const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
   const isControlledOpen = open !== undefined
   const resolvedOpen = isControlledOpen ? open : uncontrolledOpen
 
-  const selectedOptions = useMemo(
-    () => options.filter((o) => value.includes(o.value)),
+  const selectedOption = useMemo(
+    () => options.find((o) => o.value === value),
     [options, value],
   )
 
-  const menuItems = useMemo<MultiSelectMenuItem[]>(
+  const menuItems = useMemo<SelectMenuItem[]>(
     () => options.map((o) => ({
       value: o.value,
       label: o.label,
@@ -67,9 +73,6 @@ export function MultiSelect({
   )
 
   const hasAnyIcons = useMemo(() => options.some((o) => Boolean(o.icon)), [options])
-
-  const hasSelection = value.length > 0
-  const showClearAll = hovered && hasSelection && !disabled && !resolvedOpen
 
   const chevronColor = disabled ? 'var(--color-neutral-800)' : 'var(--color-neutral-400)'
 
@@ -86,11 +89,13 @@ export function MultiSelect({
       onOpenChange={setOpen}
       dropdownRender={() => (
         <div style={{ fontSize: size === 'md' ? 14 : 13, marginTop: 8 }}>
-          <MultiSelectMenu
+          <SelectMenu
             items={menuItems}
-            selectedValues={value}
-            onSelectionChange={onChange}
-            onApply={onApply}
+            selectedValue={value ?? null}
+            onSelect={(val) => {
+              onChange?.(val)
+              setOpen(false)
+            }}
             showIcons={hasAnyIcons}
             disabled={disabled}
             style={{ minWidth: Math.max(triggerRef.current?.offsetWidth ?? 0, 220) }}
@@ -105,13 +110,10 @@ export function MultiSelect({
         className={cx(
           'gradient-select-trigger',
           `gradient-select-trigger--${size}`,
-          'gradient-select-trigger--multi',
           resolvedOpen && 'gradient-select-trigger--open',
           className,
         )}
         style={style}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         aria-haspopup="listbox"
@@ -123,47 +125,11 @@ export function MultiSelect({
         {prefix && (
           <span className="gradient-select-trigger__prefix">{prefix}</span>
         )}
-
-        {hasSelection ? (
-          <span
-            className="gradient-select-trigger__tags"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {selectedOptions.map((o) => (
-              <Tag
-                key={o.value}
-                label={o.label}
-                size={size === 'md' ? 'sm' : 'xs'}
-                removable={!disabled}
-                onRemove={() => onChange?.(value.filter((v) => v !== o.value))}
-              />
-            ))}
-          </span>
-        ) : (
-          <span className="gradient-select-trigger__placeholder">{placeholder}</span>
-        )}
-
-        {showClearAll ? (
-          <span
-            role="button"
-            aria-label="Clear all selections"
-            tabIndex={0}
-            className="gradient-select-trigger__clear"
-            onClick={(e) => { e.stopPropagation(); onChange?.([]) }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                e.stopPropagation()
-                onChange?.([])
-              }
-            }}
-          >
-            <CloseOutlined style={{ fontSize: 12 }} />
-          </span>
-        ) : (
-          <Chevron open={resolvedOpen} color={chevronColor} />
-        )}
-
+        {selectedOption
+          ? <span className="gradient-select-trigger__label">{selectedOption.label}</span>
+          : <span className="gradient-select-trigger__placeholder">{placeholder}</span>
+        }
+        <Chevron open={resolvedOpen} color={chevronColor} />
         {focused && !resolvedOpen && !disabled && (
           <span aria-hidden="true" className="gradient-select-focus-ring" />
         )}
@@ -172,4 +138,4 @@ export function MultiSelect({
   )
 }
 
-export default MultiSelect
+export default SingleSelect

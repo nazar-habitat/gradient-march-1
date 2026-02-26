@@ -2,12 +2,12 @@ import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { PlusOutlined } from '@ant-design/icons'
 import { Select } from './Select'
-import type { SelectItem, SelectSize } from './Select'
+import type { SelectOption, SelectSize } from './SingleSelect'
 
-const items: SelectItem[] = [
-  { key: 'a', label: 'Select A' },
-  { key: 'b', label: 'Select B' },
-  { key: 'c', label: 'Select C' },
+const options: SelectOption[] = [
+  { value: 'a', label: 'Select A' },
+  { value: 'b', label: 'Select B' },
+  { value: 'c', label: 'Select C' },
 ]
 
 const meta: Meta<typeof Select> = {
@@ -30,29 +30,23 @@ type Story = StoryObj<typeof Select>
 
 export const Playground: Story = {
   args: {
-    items,
+    options,
     placeholder: 'Select',
     size: 'md',
     disabled: false,
   },
   render: (args) => {
     const [value, setValue] = useState<string | undefined>()
-    return (
-      <Select
-        {...args}
-        value={value}
-        onChange={setValue}
-      />
-    )
+    return <Select {...args} value={value} onChange={setValue} />
   },
 }
 
 export const Layouts: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-      <Select items={items} value="a" />
-      <Select items={items} value="a" leadingIcon={<PlusOutlined />} />
-      <Select items={items} value="a" leadingIcon={<PlusOutlined />} prefix="Prefix:" />
+      <Select options={options} value="a" />
+      <Select options={options} value="a" leadingIcon={<PlusOutlined />} />
+      <Select options={options} value="a" leadingIcon={<PlusOutlined />} prefix="Prefix:" />
     </div>
   ),
 }
@@ -61,7 +55,7 @@ export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       {(['md', 'sm'] as const).map((size: SelectSize) => (
-        <Select key={size} items={items} value="a" size={size} />
+        <Select key={size} options={options} value="a" size={size} />
       ))}
     </div>
   ),
@@ -70,10 +64,10 @@ export const Sizes: Story = {
 export const States: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 12, maxWidth: 240 }}>
-      <Select items={items} />
-      <Select items={items} value="a" />
-      <Select items={items} value="a" open />
-      <Select items={items} value="a" disabled />
+      <Select options={options} />
+      <Select options={options} value="a" />
+      <Select options={options} value="a" open />
+      <Select options={options} value="a" disabled />
     </div>
   ),
 }
@@ -82,11 +76,10 @@ export const Controlled: Story = {
   render: () => {
     const [value, setValue] = useState<string | undefined>('a')
     const [open, setOpen] = useState(false)
-
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 260 }}>
         <Select
-          items={items}
+          options={options}
           value={value}
           onChange={setValue}
           open={open}
@@ -96,6 +89,26 @@ export const Controlled: Story = {
         />
         <div style={{ color: '#949494', fontSize: 12 }}>
           Value: {value ?? 'none'} | Open: {String(open)}
+        </div>
+      </div>
+    )
+  },
+}
+
+export const MultiMode: Story = {
+  render: () => {
+    const [value, setValue] = useState<string[]>(['a'])
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 320 }}>
+        <Select
+          mode="multiple"
+          options={options}
+          value={value}
+          onChange={setValue}
+          placeholder="Pick options"
+        />
+        <div style={{ color: '#949494', fontSize: 12 }}>
+          Selected: {value.length > 0 ? value.join(', ') : 'none'}
         </div>
       </div>
     )
