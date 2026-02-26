@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+@theme {
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-family-sans: "Inter", sans-serif;
+
+  /* ── Neutral scale ────────────────────────────────────────── */
+  --color-neutral-50:  #f7f7f7;
+  --color-neutral-100: #dedede;
+  --color-neutral-200: #c6c6c6;
+  --color-neutral-300: #adadad;
+  --color-neutral-400: #949494;
+  --color-neutral-500: #7b7b7b;
+  --color-neutral-600: #636363;
+  --color-neutral-700: #4a4a4a;
+  --color-neutral-800: #313131;
+  --color-neutral-850: #292929;
+  --color-neutral-900: #191919;
+  --color-neutral-950: #141414;
+
+  /* ── Purple (primary) ────────────────────────────────────── */
+  --color-purple-50:  #f6f6fe;
+  --color-purple-100: #ededfe;
+  --color-purple-200: #d5d4fc;
+  --color-purple-300: #a9a8fa;
+  --color-purple-400: #7f7df8;
+  --color-purple-500: #5452f5;
+  --color-purple-600: #4341f1;
+  --color-purple-700: #3735bb;
+  --color-purple-800: #15146a;
+  --color-purple-900: #0b0a54;
+
+  /* ── Turquoise ───────────────────────────────────────────── */
+  --color-turquoise-50:  #e6ffff;
+  --color-turquoise-100: #bcf5f3;
+  --color-turquoise-200: #a8f1f2;
+  --color-turquoise-300: #68e5e8;
+  --color-turquoise-400: #35dddf;
+  --color-turquoise-500: #14d4d4;
+  --color-turquoise-600: #14988f;
+  --color-turquoise-700: #128d82;
+  --color-turquoise-800: #00596a;
+  --color-turquoise-900: #003429;
+
+  /* ── Green (success) ─────────────────────────────────────── */
+  --color-green-50:  #bffee7;
+  --color-green-100: #aef5d0;
+  --color-green-200: #aaffc0;
+  --color-green-300: #7affa5;
+  --color-green-400: #45f583;
+  --color-green-500: #0ce63a;
+  --color-green-600: #008392;
+  --color-green-700: #45a545;
+  --color-green-800: #151f1f;
+  --color-green-900: #0f1919;
+
+  /* ── Lime ────────────────────────────────────────────────── */
+  --color-lime-50:  #f9ffe7;
+  --color-lime-100: #f8ffc0;
+  --color-lime-200: #f1ffad;
+  --color-lime-300: #efff7d;
+  --color-lime-400: #e0ff58;
+  --color-lime-500: #d0ff32;
+  --color-lime-600: #a1cc33;
+  --color-lime-700: #828e23;
+  --color-lime-800: #606f19;
+  --color-lime-900: #3a4013;
+
+  /* ── Orange (warning) ────────────────────────────────────── */
+  --color-orange-50:  #fff6e3;
+  --color-orange-100: #fff1cc;
+  --color-orange-200: #ffedac;
+  --color-orange-300: #ffe362;
+  --color-orange-400: #ffc34b;
+  --color-orange-500: #ffae19;
+  --color-orange-600: #ac883b;
+  --color-orange-700: #a67619;
+  --color-orange-800: #8b641a;
+  --color-orange-900: #442c0a;
+
+  /* ── Red (error) ─────────────────────────────────────────── */
+  --color-red-50:  #fff1f8;
+  --color-red-100: #ffebdd;
+  --color-red-200: #ffdbd2;
+  --color-red-300: #ffc7a1;
+  --color-red-400: #ff847f;
+  --color-red-500: #ff7064;
+  --color-red-600: #e53c1c;
+  --color-red-700: #c32705;
+  --color-red-800: #a21805;
+  --color-red-900: #3d0f02;
+
+  /* ── Plum (accents) ──────────────────────────────────────── */
+  --color-plum-300: #e98ce9;
+  --color-plum-900: #350635;
+}
+
+/* ── Base reset ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
