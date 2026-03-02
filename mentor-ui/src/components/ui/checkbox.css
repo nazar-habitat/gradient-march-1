@@ -1,5 +1,5 @@
 .gradient-checkbox.ant-checkbox-wrapper {
-  align-items: flex-start;
+  align-items: center;
   color: #ffffff;
   display: inline-flex;
   gap: 8px;
@@ -7,7 +7,7 @@
 }
 
 .gradient-checkbox.ant-checkbox-wrapper .ant-checkbox {
-  top: 2px;
+  top: 0;
 }
 
 .gradient-checkbox.ant-checkbox-wrapper .ant-checkbox-inner {
