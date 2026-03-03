@@ -110,7 +110,7 @@
 
 .gradient-button.gradient-button--secondary:disabled {
   background-color: transparent;
-  border-color: var(--color-neutral-600);
+  border-color: var(--color-neutral-700);
   color: var(--color-neutral-600);
 }
 
@@ -118,14 +118,34 @@
   color: #ffffff;
 }
 
+.gradient-button.gradient-button--secondary.gradient-button--intent-default:disabled {
+  border-color: var(--color-neutral-700);
+  color: var(--color-neutral-600);
+}
+
 .gradient-button.gradient-button--secondary.gradient-button--intent-success {
   color: var(--color-green-400);
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-success:disabled {
+  border-color: var(--color-neutral-700);
+  color: var(--color-neutral-600);
 }
 
 .gradient-button.gradient-button--secondary.gradient-button--intent-warning {
   color: var(--color-orange-500);
 }
 
+.gradient-button.gradient-button--secondary.gradient-button--intent-warning:disabled {
+  border-color: var(--color-neutral-700);
+  color: var(--color-neutral-600);
+}
+
 .gradient-button.gradient-button--secondary.gradient-button--intent-error {
   color: var(--color-red-500);
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-error:disabled {
+  border-color: var(--color-neutral-700);
+  color: var(--color-neutral-600);
 }
