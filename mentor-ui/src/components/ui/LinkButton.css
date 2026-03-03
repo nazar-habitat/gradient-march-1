@@ -1,0 +1,28 @@
+/* Base */
+.gradient-link-button {
+  outline: none;
+  display: inline;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25rem;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  border-radius: 4px;
+  transition: color 0.15s;
+  color: var(--color-neutral-100);
+  cursor: pointer;
+}
+
+.gradient-link-button:hover {
+  color: #ffffff;
+}
+
+.gradient-link-button:active {
+  color: var(--color-neutral-300);
+}
+
+.gradient-link-button.gradient-link-button--disabled {
+  color: var(--color-neutral-600);
+  cursor: not-allowed;
+  pointer-events: none;
+}

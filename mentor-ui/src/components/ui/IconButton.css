@@ -1,0 +1,152 @@
+/* Base */
+.gradient-icon-button {
+  outline: none;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.gradient-icon-button:disabled {
+  cursor: not-allowed;
+}
+
+.gradient-icon-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.gradient-icon-button.gradient-icon-button--xl {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.gradient-icon-button.gradient-icon-button--xl .gradient-icon-button__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.gradient-icon-button.gradient-icon-button--md {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.gradient-icon-button.gradient-icon-button--md .gradient-icon-button__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.gradient-icon-button.gradient-icon-button--sm {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.gradient-icon-button.gradient-icon-button--sm .gradient-icon-button__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Primary variant */
+.gradient-icon-button.gradient-icon-button--primary {
+  background-color: var(--color-purple-500);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--primary:hover:not(:disabled) {
+  background-color: var(--color-purple-600);
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--primary:active:not(:disabled) {
+  background-color: var(--color-purple-700);
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--primary:disabled {
+  background-color: var(--color-neutral-800);
+  color: var(--color-neutral-600);
+}
+
+/* Secondary variant */
+.gradient-icon-button.gradient-icon-button--secondary {
+  background-color: var(--color-neutral-900);
+  border-color: var(--color-neutral-700);
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-neutral-850);
+  border-color: var(--color-neutral-700);
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--secondary:active:not(:disabled) {
+  background-color: var(--color-neutral-800);
+  border-color: var(--color-neutral-700);
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--secondary:disabled {
+  background-color: transparent;
+  border-color: var(--color-neutral-800);
+  color: var(--color-neutral-600);
+}
+
+/* Transparent variant */
+.gradient-icon-button.gradient-icon-button--transparent {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-purple-400);
+}
+
+.gradient-icon-button.gradient-icon-button--transparent:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--color-purple-300);
+}
+
+.gradient-icon-button.gradient-icon-button--transparent:active:not(:disabled) {
+  background-color: transparent;
+  color: var(--color-purple-500);
+}
+
+.gradient-icon-button.gradient-icon-button--transparent:disabled {
+  background-color: transparent;
+  color: var(--color-neutral-600);
+}
+
+/* Removable variant */
+.gradient-icon-button.gradient-icon-button--removable {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-neutral-100);
+}
+
+.gradient-icon-button.gradient-icon-button--removable:hover:not(:disabled) {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.gradient-icon-button.gradient-icon-button--removable:active:not(:disabled) {
+  background-color: transparent;
+  color: var(--color-neutral-300);
+}
+
+.gradient-icon-button.gradient-icon-button--removable:disabled {
+  background-color: transparent;
+  color: var(--color-neutral-600);
+}

@@ -1,0 +1,131 @@
+/* Base */
+.gradient-button {
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.gradient-button:disabled {
+  cursor: not-allowed;
+}
+
+.gradient-button__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-button__label {
+  white-space: nowrap;
+}
+
+/* Sizes */
+.gradient-button.gradient-button--xl {
+  height: 64px;
+  padding-inline: 24px;
+  padding-block: 20px;
+  gap: 10px;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
+.gradient-button.gradient-button--xl .gradient-button__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.gradient-button.gradient-button--md {
+  height: 40px;
+  padding-inline: 16px;
+  padding-block: 10px;
+  gap: 8px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.gradient-button.gradient-button--md .gradient-button__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.gradient-button.gradient-button--sm {
+  height: 32px;
+  padding-inline: 12px;
+  padding-block: 8px;
+  gap: 6px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.gradient-button.gradient-button--sm .gradient-button__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Primary variant */
+.gradient-button.gradient-button--primary {
+  color: #ffffff;
+  background-color: var(--color-purple-500);
+  border: none;
+}
+
+.gradient-button.gradient-button--primary:hover:not(:disabled) {
+  background-color: var(--color-purple-600);
+}
+
+.gradient-button.gradient-button--primary:active:not(:disabled) {
+  background-color: var(--color-purple-700);
+}
+
+.gradient-button.gradient-button--primary:disabled {
+  background-color: var(--color-neutral-800);
+  color: var(--color-neutral-600);
+}
+
+/* Secondary variant */
+.gradient-button.gradient-button--secondary {
+  background-color: var(--color-neutral-900);
+  border: 1px solid var(--color-neutral-800);
+}
+
+.gradient-button.gradient-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-neutral-850);
+}
+
+.gradient-button.gradient-button--secondary:active:not(:disabled) {
+  background-color: var(--color-neutral-800);
+}
+
+.gradient-button.gradient-button--secondary:disabled {
+  background-color: transparent;
+  border-color: var(--color-neutral-600);
+  color: var(--color-neutral-600);
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-default {
+  color: #ffffff;
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-success {
+  color: var(--color-green-400);
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-warning {
+  color: var(--color-orange-500);
+}
+
+.gradient-button.gradient-button--secondary.gradient-button--intent-error {
+  color: var(--color-red-500);
+}

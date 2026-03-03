@@ -1,0 +1,106 @@
+/* Base */
+.gradient-tag.ant-tag {
+  align-items: center;
+  border: none;
+  display: inline-flex;
+  font-family: Inter, sans-serif;
+  gap: 2px;
+  margin-inline-end: 0;
+  user-select: none;
+}
+
+/* Tones */
+.gradient-tag.ant-tag.gradient-tag--turquoise {
+  background-color: #063435;
+  color: #8ce8e9;
+}
+
+.gradient-tag.ant-tag.gradient-tag--warning {
+  background-color: #402c06;
+  color: #ffd280;
+}
+
+.gradient-tag.ant-tag.gradient-tag--lime {
+  background-color: #324010;
+  color: #daff7d;
+}
+
+.gradient-tag.ant-tag.gradient-tag--success {
+  background-color: #044015;
+  color: #7af59d;
+}
+
+.gradient-tag.ant-tag.gradient-tag--neutral {
+  background-color: #313131;
+  color: #dedede;
+}
+
+.gradient-tag.ant-tag.gradient-tag--error {
+  background-color: #510f02;
+  color: #fcb7a9;
+}
+
+.gradient-tag.ant-tag.gradient-tag--plum {
+  background-color: #350635;
+  color: #e98ce9;
+}
+
+.gradient-tag.ant-tag.gradient-tag--violet {
+  background-color: #160635;
+  color: #ab8ce9;
+}
+
+/* Close icon inherits text color */
+.gradient-tag.ant-tag .ant-tag-close-icon {
+  color: inherit;
+  line-height: 1;
+}
+
+.gradient-tag.ant-tag.gradient-tag--xs .ant-tag-close-icon {
+  font-size: 8px;
+}
+
+.gradient-tag.ant-tag.gradient-tag--sm .ant-tag-close-icon {
+  font-size: 8px;
+}
+
+.gradient-tag.ant-tag.gradient-tag--md .ant-tag-close-icon {
+  font-size: 10px;
+}
+
+/* Sizes */
+.gradient-tag.ant-tag.gradient-tag--xs {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  min-height: 16px;
+  padding-inline: 4px;
+  padding-block: 0;
+}
+
+.gradient-tag.ant-tag.gradient-tag--sm {
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  min-height: 20px;
+  padding-inline: 4px;
+  padding-block: 2px;
+}
+
+.gradient-tag.ant-tag.gradient-tag--md {
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  min-height: 28px;
+  padding-inline: 6px;
+  padding-block: 2px;
+}
+
+/* Disabled */
+.gradient-tag.ant-tag.gradient-tag--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

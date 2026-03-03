@@ -1,0 +1,103 @@
+/* Base */
+.gradient-text-button {
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+  border-radius: 6px;
+  gap: 2px;
+}
+
+.gradient-text-button:disabled {
+  cursor: not-allowed;
+}
+
+.gradient-text-button__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.gradient-text-button__label {
+  white-space: nowrap;
+}
+
+/* Sizes */
+.gradient-text-button.gradient-text-button--xl {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
+.gradient-text-button.gradient-text-button--md {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.gradient-text-button.gradient-text-button--sm {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+/* Intents */
+.gradient-text-button.gradient-text-button--intent-default {
+  color: var(--color-purple-400);
+}
+
+.gradient-text-button.gradient-text-button--intent-default:hover:not(:disabled) {
+  color: var(--color-purple-300);
+}
+
+.gradient-text-button.gradient-text-button--intent-default:active:not(:disabled) {
+  color: var(--color-purple-500);
+}
+
+.gradient-text-button.gradient-text-button--intent-success {
+  color: var(--color-green-400);
+}
+
+.gradient-text-button.gradient-text-button--intent-success:hover:not(:disabled) {
+  color: var(--color-green-300);
+}
+
+.gradient-text-button.gradient-text-button--intent-success:active:not(:disabled) {
+  color: var(--color-green-500);
+}
+
+.gradient-text-button.gradient-text-button--intent-warning {
+  color: var(--color-orange-400);
+}
+
+.gradient-text-button.gradient-text-button--intent-warning:hover:not(:disabled) {
+  color: var(--color-orange-300);
+}
+
+.gradient-text-button.gradient-text-button--intent-warning:active:not(:disabled) {
+  color: var(--color-orange-700);
+}
+
+.gradient-text-button.gradient-text-button--intent-error {
+  color: var(--color-red-500);
+}
+
+.gradient-text-button.gradient-text-button--intent-error:hover:not(:disabled) {
+  color: var(--color-red-300);
+}
+
+.gradient-text-button.gradient-text-button--intent-error:active:not(:disabled) {
+  color: var(--color-red-600);
+}
+
+.gradient-text-button:disabled {
+  color: var(--color-neutral-600);
+}

@@ -1,10 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
+import { TagOutlined, StarOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import { Tag } from './Tag'
 import type { TagSize, TagTone } from './Tag'
 
 const tones: TagTone[] = ['turquoise', 'warning', 'lime', 'success', 'neutral', 'error', 'plum', 'violet']
 const sizes: TagSize[] = ['xs', 'sm', 'md']
+
+const iconOptions = ['none', 'tag', 'star', 'check'] as const
+const iconMap = {
+  none: undefined,
+  tag: <TagOutlined />,
+  star: <StarOutlined />,
+  check: <CheckCircleOutlined />,
+}
 
 const meta: Meta<typeof Tag> = {
   title: 'UI/Tag',
@@ -14,11 +23,12 @@ const meta: Meta<typeof Tag> = {
     layout: 'padded',
   },
   argTypes: {
+    label: { control: 'text' },
     tone: { control: 'select', options: tones },
     size: { control: 'select', options: sizes },
+    icon: { control: 'select', options: iconOptions },
     removable: { control: 'boolean' },
     disabled: { control: 'boolean' },
-    label: { control: 'text' },
   },
 }
 
@@ -30,8 +40,14 @@ export const Playground: Story = {
     label: 'Label',
     tone: 'neutral',
     size: 'xs',
+    icon: 'none',
     removable: false,
     disabled: false,
+  },
+  render: (args) => {
+    const { icon: iconKey, ...tagArgs } = args as typeof args & { icon?: (typeof iconOptions)[number] }
+    const key: (typeof iconOptions)[number] = iconKey ?? 'none'
+    return <Tag {...tagArgs} icon={iconMap[key]} />
   },
 }
 
