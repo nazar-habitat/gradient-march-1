@@ -79,7 +79,9 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
           className,
         )}
         onFocus={(e) => {
-          applyFocusRing(e.currentTarget, 'var(--color-purple-500)', focusOffset(variant))
+          if (e.currentTarget.matches(':focus-visible')) {
+            applyFocusRing(e.currentTarget, 'var(--color-purple-500)', focusOffset(variant))
+          }
           onFocus?.(e)
         }}
         onBlur={(e) => {

@@ -56,8 +56,16 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
           disabled && 'gradient-link-button--disabled',
           className,
         )}
-        onFocus={(e)  => { applyFocusRing(e.currentTarget, 'var(--color-purple-500)', '4px'); onFocus?.(e) }}
-        onBlur={(e)   => { clearFocusRing(e.currentTarget);                                  onBlur?.(e)  }}
+        onFocus={(e) => {
+          if (e.currentTarget.matches(':focus-visible')) {
+            applyFocusRing(e.currentTarget, 'var(--color-purple-500)', '4px')
+          }
+          onFocus?.(e)
+        }}
+        onBlur={(e) => {
+          clearFocusRing(e.currentTarget)
+          onBlur?.(e)
+        }}
         onClick={handleClick}
         {...rest}
       >

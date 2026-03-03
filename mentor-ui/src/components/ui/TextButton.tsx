@@ -47,8 +47,16 @@ export const TextButton = React.forwardRef<HTMLButtonElement, TextButtonProps>(
           `gradient-text-button--intent-${intent}`,
           className,
         )}
-        onFocus={(e)  => { applyFocusRing(e.currentTarget, 'var(--color-purple-500)', '4px'); onFocus?.(e) }}
-        onBlur={(e)   => { clearFocusRing(e.currentTarget);                                  onBlur?.(e)  }}
+        onFocus={(e) => {
+          if (e.currentTarget.matches(':focus-visible')) {
+            applyFocusRing(e.currentTarget, 'var(--color-purple-500)', '4px')
+          }
+          onFocus?.(e)
+        }}
+        onBlur={(e) => {
+          clearFocusRing(e.currentTarget)
+          onBlur?.(e)
+        }}
         {...rest}
       >
         {leadingIcon && (
