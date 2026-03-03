@@ -18,13 +18,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children?: React.ReactNode
 }
 
-/** Focus ring colour per intent (secondary). Primary always uses the accent. */
-const focusColor: Record<ButtonIntent, string> = {
-  default: 'var(--color-purple-500)',
-  success: 'var(--color-green-400)',
-  warning: 'var(--color-orange-500)',
-  error:   'var(--color-red-500)',
-}
+/** Focus ring colour: always primary (keyboard focus only). */
+const FOCUS_RING_COLOR = 'var(--color-purple-500)'
 
 function cx(...classNames: Array<string | false | null | undefined>): string {
   return classNames.filter(Boolean).join(' ')
@@ -50,8 +45,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const ringColor = variant === 'primary' ? 'var(--color-purple-500)' : focusColor[intent]
-
     return (
       <button
         ref={ref}
@@ -64,8 +57,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           variant === 'secondary' && `gradient-button--intent-${intent}`,
           className,
         )}
-        onFocus={(e) => { applyFocusRing(e.currentTarget, ringColor, '2px'); onFocus?.(e) }}
-        onBlur={(e)  => { clearFocusRing(e.currentTarget);                   onBlur?.(e)  }}
+        onFocus={(e) => {
+          if (e.currentTarget.matches(':focus-visible')) {
+            applyFocusRing(e.currentTarget, FOCUS_RING_COLOR, '2px')
+          }
+          onFocus?.(e)
+        }}
+        onBlur={(e) => {
+          clearFocusRing(e.currentTarget)
+          onBlur?.(e)
+        }}
         {...rest}
       >
         {leadingIcon && (
