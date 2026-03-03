@@ -41,7 +41,15 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
     ref,
   ) => {
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      if (disabled) { e.preventDefault(); return }
+      if (disabled) {
+        e.preventDefault()
+        return
+      }
+      // Prevent navigation for placeholder hrefs (# or empty) so LinkButton can be used as a button
+      const href = e.currentTarget.getAttribute('href')
+      if (href === '#' || href === '') {
+        e.preventDefault()
+      }
       onClick?.(e)
     }
 
