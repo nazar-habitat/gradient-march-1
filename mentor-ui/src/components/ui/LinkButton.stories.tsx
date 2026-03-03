@@ -23,7 +23,7 @@ const Focused = (props: React.ComponentProps<typeof LinkButton>) => {
 const meta: Meta<typeof LinkButton> = {
   title:     'UI/LinkButton',
   component: LinkButton,
-  layout:    'padded',
+  parameters: { layout: 'padded' },
   argTypes: {
     disabled: { control: 'boolean' },
     href:     { control: 'text' },

@@ -35,7 +35,7 @@ const Focused = (props: React.ComponentProps<typeof IconButton>) => {
 const meta: Meta<typeof IconButton> = {
   title:     'UI/IconButton',
   component: IconButton,
-  layout:    'padded',
+  parameters: { layout: 'padded' },
   argTypes: {
     variant:  { control: 'select', options: ['primary', 'secondary', 'transparent', 'removable'] },
     size:     { control: 'select', options: ['xl', 'md', 'sm'] },
